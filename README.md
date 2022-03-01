@@ -5,7 +5,7 @@ This script has the purpose to take a txt file full of words, and convert that t
 
 ## Requirements
 - Python 3
-- A .txt file
+- A .txt file with words in (the script will sort away any numbers)
 
 ## How to
 Clone this repository, move your .txt file to the same folder, and run the script.
