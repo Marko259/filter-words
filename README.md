@@ -4,8 +4,8 @@
 This script has the purpose to take a txt file full of words, and convert that to a JSON format.
 
 ## Requirements
-Python 3
-A .txt file
+- Python 3
+- A .txt file
 
 ## How to
 Clone this repository, move your .txt file to the same folder, and run the script.
