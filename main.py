@@ -19,7 +19,9 @@ def create_file():
         for line in f:
             if has_number(line) == False:
                 word = remove_special_characters(line)
-                if len(word) == amount:
+                if amount == 0:
+                    words.append(word)
+                elif len(word) == amount:
                     words.append(word)
             else:
                 print("Skipping line: " + line.strip())
