@@ -1,14 +1,18 @@
 import json
+import re
 
 
 def main():
     print("Welcome to the main menu!")
     print("1. Create a new file")
-    print("2. Exit")
+    print("2. Sort a file")
+    print("3. Exit")
     input_option = input("Please enter your option: ")
     if input_option == "1":
         create_file()
     elif input_option == "2":
+        sort()
+    elif input_option == "3":
         exit()
 
 def create_file():
@@ -31,6 +35,28 @@ def create_file():
     json.dump(words, out_file, indent=4, sort_keys=False, ensure_ascii=False)
     out_file.close()
     process_completed()
+
+def sort():
+    words = []
+    file = input("Enter the name of the file you want to sort: ")
+    amount = int(input("Enter the amount of words you need to filter by: "))
+    with open(f'{file}', "r") as f:
+        for line in f:
+            word = re.sub(r'^\d+[. ]+|;.*', '', line)
+            word = remove_char(word)
+            if amount == 0:
+                words.append(word)
+            elif len(word) == amount:
+                words.append(word)
+    output = file.replace(".txt", ".json")
+    out_file = open(f'{amount} - {output}', "w")
+    json.dump(words, out_file, indent=4, sort_keys=False, ensure_ascii=False)
+    out_file.close()
+    process_completed()
+    
+def remove_char(word):
+    if '\n' in word:
+        return word.replace('\n', '')
 
 
 def remove_special_characters(line):
