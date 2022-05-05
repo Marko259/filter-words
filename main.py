@@ -40,25 +40,27 @@ def sort():
     words = []
     file = input("Enter the name of the file you want to sort: ")
     amount = int(input("Enter the amount of words you need to filter by: "))
-    with open(f'{file}', "r") as f:
+    with open(f'{file}', "r", encoding="UTF-8") as f:
         for line in f:
             word = re.sub(r'^\d+[. ]+|;.*', '', line)
             word = remove_char(word)
-            if "'" in word or " " in word or '.' in word:
+            if "'" in word or " " in word or '.' in word or '-' in word:
                 print("Skipping line: " + line.strip())
+                continue
             elif amount == 0:
                 words.append(word)
             elif len(word) == amount:
                 words.append(word)
     output = file.replace(f".{file.split('.')[-1]}", ".json")
-    out_file = open(f'{amount} - {output}', "w")
-    json.dump(words, out_file, indent=4, sort_keys=False, ensure_ascii=False)
+    with open(f'{amount} - {output}', "w", encoding='UTF-8') as out_file:
+        json.dump(words, out_file, indent=4, sort_keys=False, ensure_ascii=False)
     out_file.close()
     process_completed()
     
 def remove_char(word):
     if '\n' in word:
         return word.replace('\n', '')
+    return word
 
 
 def remove_special_characters(line):
