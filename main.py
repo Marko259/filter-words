@@ -44,11 +44,13 @@ def sort():
         for line in f:
             word = re.sub(r'^\d+[. ]+|;.*', '', line)
             word = remove_char(word)
-            if amount == 0:
+            if "'" in word or " " in word or '.' in word:
+                print("Skipping line: " + line.strip())
+            elif amount == 0:
                 words.append(word)
             elif len(word) == amount:
                 words.append(word)
-    output = file.replace(".txt", ".json")
+    output = file.replace(f".{file.split('.')[-1]}", ".json")
     out_file = open(f'{amount} - {output}', "w")
     json.dump(words, out_file, indent=4, sort_keys=False, ensure_ascii=False)
     out_file.close()
